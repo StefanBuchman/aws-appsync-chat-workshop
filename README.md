@@ -42,7 +42,7 @@ You can use this for learning purposes or adapt either the application or the Gr
 - [AWS Amplify CLI](https://github.com/aws-amplify/amplify-cli) configured for a region where [AWS AppSync](https://docs.aws.amazon.com/general/latest/gr/rande.html) and all other services in use are available `(npm install -g @aws-amplify/cli)`
 - [AWS SAM CLI](https://github.com/awslabs/aws-sam-cli) `(pip install --user aws-sam-cli)`
 - [Create React App](https://github.com/facebook/create-react-app) `(npm install -g create-react-app)`
-- [Install JQ](https://stedolan.github.io/jq/)
+- [Install JQ](https://stedolan.github.io/jq/) `(OSx - brew install jq or Windows - chocolatey install jq)`
 - If using Windows, you'll need the [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 
 ### Back End Setup
