@@ -102,6 +102,8 @@ Using default provider awscloudformation
 
 * Do you want to use an AWS profile? (Y/n)
 
+-
+
    Set the region we are deploying resources to:
 
    ```bash
