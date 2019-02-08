@@ -79,28 +79,28 @@ At the time of writing this workshop, Amazon Lex is only available in these regi
    amplify init
    ```
 
-### Example:
-        ```
-        Note: It is recommended to run this command from the root of your app directory
+#### Example:
 
-        * Enter a name for the project: 
-        * Choose your default editor: 
-        * Choose the type of app that you're building: `Select javascript`
+Note: It is recommended to run this command from the root of your app directory
 
-        Please tell us about your project
+* Enter a name for the project: 
+* Choose your default editor: 
+* Choose the type of app that you're building: `Select javascript`
 
-        * What javascript framework are you using `Select react`
-        * Source Directory Path:  (src) 
-        * Distribution Directory Path: build
-        * Build Command:  npm run-script build
-        * Start Command: npm run-script start
-        Using default provider awscloudformation
+Please tell us about your project
 
-        For more information on AWS Profiles, see:
-        https://docs.aws.amazon.com/cli/latest/userguide/cli-multiple-profiles.html
+* What javascript framework are you using `Select react`
+* Source Directory Path:  (src) 
+* Distribution Directory Path: build
+* Build Command:  npm run-script build
+* Start Command: npm run-script start
 
-        * Do you want to use an AWS profile? (Y/n)
-        ```
+Using default provider awscloudformation
+
+    For more information on AWS Profiles, see:
+    https://docs.aws.amazon.com/cli/latest/userguide/cli-multiple-profiles.html
+
+* Do you want to use an AWS profile? (Y/n)
 
    Set the region we are deploying resources to:
 
