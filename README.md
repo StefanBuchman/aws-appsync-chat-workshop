@@ -1,11 +1,7 @@
-# Workshop: Building a Serverless Chat Application
-==================================================
-## Using AppSync, GraphQL and React
------------------------------------
+# Workshop: Building a React PWA Chat Application
 
 ## Quicklinks
 
-- re:Invent 2018 [Session](https://www.youtube.com/watch?v=0H5F0PI2-SU)/[Slides](https://www.slideshare.net/AmazonWebServices/bridging-the-gap-between-real-timeoffline-and-aiml-capabilities-in-modern-serverless-apps-mob310-aws-reinvent-2018)
 - [Introduction](#introduction)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
@@ -18,22 +14,24 @@
 
 ## Introduction
 
-This is a Starter React Progressive Web Application (PWA) that uses AWS AppSync to implement offline and real-time capabilities in a chat application with AI/ML features such as image recognition, text-to-speech, language translation, sentiment analysis as well as conversational chatbots developed as part of the re:Invent session [Bridging the Gap Between Real Time/Offline and AI/ML Capabilities in Modern Serverless Apps](https://www.youtube.com/watch?v=0H5F0PI2-SU). In the chat app, users can search for users and messages, have conversations with other users, upload images and exchange messages. The application demonstrates GraphQL Mutations, Queries and Subscriptions with AWS AppSync integrating with other AWS Services:
+This is a Starter React Progressive Web Application (PWA) that uses AWS AppSync to implement offline and real-time capabilities in a chat application with AI/ML features such as image recognition, text-to-speech, language translation, sentiment analysis as well as conversational chatbots developed as part of the re:Invent session [Bridging the Gap Between Real Time/Offline and AI/ML Capabilities in Modern Serverless Apps](https://www.youtube.com/watch?v=0H5F0PI2-SU). In the chat app, users can search for users and messages, have conversations with other users, upload images and exchange messages.
+
+### Architecture
 
 ![ChatQL Overview](/media/ChatQLv2.png)
 
-- Amazon Cognito for user management as well as AuthN/Z
-- Amazon DynamoDB with 4x NoSQL Data Sources (Users, Messages, Conversations, ConvoLink)
-- Amazon Elasticsearch Data Source for full text search on messages and users
-- AWS Lambda as a Serverless Data Source connecting to AI Services
-- Amazon Comprehend for sentiment and entity analysis as well as language detection
-- Amazon Rekognition for object, scene and celebrity detection on images
-- Amazon Lex for conversational chatbots
-- Amazon Polly for text-to-speech on messages
-- Amazon Translate for language translation
-- Amazon S3 for Media Storage
+The application demonstrates GraphQL Mutations, Queries and Subscriptions with AWS AppSync integrating with other AWS Services:
 
-You can use this for learning purposes or adapt either the application or the GraphQL Schema to meet your needs.
+- Amazon Cognito for user management as well as Authentication and Authorisation (*AuthN/Z*)
+- Amazon DynamoDB with multiple data sources (Users, Messages, Conversations, ConvoLink)
+- Amazon Elasticsearch data source for full text search on messages and users
+- Amazon S3 for Media Storage
+- AWS Lambda as a Serverless integration layer for connecting to AI Services
+  - Amazon Comprehend for sentiment and entity analysis as well as language detection
+  - Amazon Rekognition for object, scene and celebrity detection on images
+  - Amazon Lex for conversational chatbots
+  - Amazon Polly for text-to-speech on messages
+  - Amazon Translate for language translation
 
 ## Getting Started
 
@@ -46,27 +44,28 @@ You can use this for learning purposes or adapt either the application or the Gr
 - [AWS SAM CLI](https://github.com/awslabs/aws-sam-cli) `(pip install --user aws-sam-cli)`
 - [AWS SAM Install Instructions](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html) 
 - [Create React App](https://github.com/facebook/create-react-app) `(npm install -g create-react-app)`
-- [Install JQ](https://stedolan.github.io/jq/) `(OSx - brew install jq or Windows - chocolatey install jq)`
-- If using Windows, you'll need the [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+- [Install JQ](https://stedolan.github.io/jq/) **macOS** `(brew install jq)` or **Windows** `(chocolatey install jq)`
+- **If using Windows**, you'll need the [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 
 
 ### Region Selection
 
-Please Note: If you wish to integrate the AI features as part of this workshop. It's recommended that you launch the entire solution in one of these regions:
+*Please Note: If you wish to integrate the AI features as part of this workshop. It's recommended that you launch the entire solution in one of these regions:*
 
-* us-east-1
-* us-west-1
-* eu-west-1 
+* *us-east-1*
+* *us-west-1*
+* *eu-west-1*
 
-At the time of writing this workshop, Amazon Lex is only available in these regions.
+*At the time of writing this workshop, Amazon Lex is only available in these regions.*
 
-## Instructions - Launch a Serverless Chat Application with AWS Amplify
+## Instructions
+###Launch a Serverless Chat Application with AWS Amplify
 
 1. First, clone this repository and navigate to the created folder:
 
    ```bash
-   git clone https://github.com/aws-samples/aws-appsync-chat-starter-react.git
-   cd aws-appsync-chat-starter-react
+   git clone https://github.com/StefanBuchman/aws-appsync-chat-workshop.git
+   cd aws-appsync-chat-workshop
    ```
 
 2. Install the required modules:
@@ -96,11 +95,16 @@ At the time of writing this workshop, Amazon Lex is only available in these regi
 
    Make sure [**ALL**](https://docs.aws.amazon.com/general/latest/gr/rande.html) services are supported in this region or else you'll get errors in the next steps.
 
-4. Add an **Amazon Cognito User Pool** auth resource.  When prompted `Do you want to use the default authentication and security configuration? ` Use the default configuration.
+4. Add an **Amazon Cognito User Pool** auth resource. 
 
    ```bash
    amplify add auth
    ```
+   When prompted:
+
+   "_Do you want to use the default authentication and security configuration?_"
+   **Use the default configuration**
+ 
 
 5. Add an **AppSync GraphQL** API with **Amazon Cognito User Pool** for the API Authentication. Follow the default options. When prompted with "_Do you have an annotated GraphQL schema?_", select **"YES"** and provide the schema file path `backend/schema.graphql`
 
