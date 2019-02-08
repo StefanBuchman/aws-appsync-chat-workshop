@@ -45,9 +45,18 @@ You can use this for learning purposes or adapt either the application or the Gr
 - [Install JQ](https://stedolan.github.io/jq/) `(OSx - brew install jq or Windows - chocolatey install jq)`
 - If using Windows, you'll need the [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 
-### Back End Setup
 
-Note: This solution uses Amazon Lex. The service is only supported in us-east-1, us-west-2 and eu-west-1. We recommending launching this entire solution in one of these regions.
+### Region Selection
+
+Please Note: If you wish to integrate the AI features as part of this workshop. It's recommended that you launch the entire solution in one of these regions:
+
+* us-east-1
+* us-west-1
+* eu-west-1 
+
+At the time of writing this workshop, Amazon Lex is only available in these regions.
+
+## Instructions - Launch a Serverless Chat Application with AWS Amplify
 
 1. First, clone this repository and navigate to the created folder:
 
@@ -108,6 +117,9 @@ Note: This solution uses Amazon Lex. The service is only supported in us-east-1,
 **_At this point you have an usable serverless chat application with no AI features. The next steps are only needed to deploy and configure the integration with services that provide image recognition, text-to-speech, language translation, sentiment analysis as well as conversational chatbots. From here you can skip to step 13 if there's no interest to setup the AI integration._**
 
 ---
+
+
+## Add AI Features to your Serverless Chat Application
 
 8. Look up the S3 bucket name created for user storage:
 
