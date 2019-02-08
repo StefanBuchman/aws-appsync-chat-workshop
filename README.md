@@ -41,6 +41,7 @@ You can use this for learning purposes or adapt either the application or the Gr
 - [AWS CLI](http://docs.aws.amazon.com/cli/latest/userguide/installing.html) with output configured as JSON `(pip install awscli --upgrade --user)`
 - [AWS Amplify CLI](https://github.com/aws-amplify/amplify-cli) configured for a region where [AWS AppSync](https://docs.aws.amazon.com/general/latest/gr/rande.html) and all other services in use are available `(npm install -g @aws-amplify/cli)`
 - [AWS SAM CLI](https://github.com/awslabs/aws-sam-cli) `(pip install --user aws-sam-cli)`
+- [AWS SAM Install Instructions](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html) 
 - [Create React App](https://github.com/facebook/create-react-app) `(npm install -g create-react-app)`
 - [Install JQ](https://stedolan.github.io/jq/) `(OSx - brew install jq or Windows - chocolatey install jq)`
 - If using Windows, you'll need the [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
@@ -154,6 +155,8 @@ At the time of writing this workshop, Amazon Lex is only available in these regi
     ```
 
 11. Now we need to deploy 3 Lambda functions (one for AppSync and two for Lex) and configure the AppSync Resolvers to use Lambda accordingly. First, we install the npm dependencies for each lambda function. We then package and deploy the changes with SAM.
+
+**Please Note:** If you have defined an AWS Profile for the AWS CLI remember to add `--profile profile-name` to the sam package and deploy command.
 
     ```bash
     cd ./backend/chuckbot-lambda; npm install; cd ../..
