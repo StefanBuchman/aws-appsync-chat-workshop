@@ -113,7 +113,7 @@ Using default provider awscloudformation
 
    Make sure [**ALL**](https://docs.aws.amazon.com/general/latest/gr/rande.html) services are supported in this region or else you'll get errors in the next steps.
 
-4. Add an **Amazon Cognito User Pool** auth resource. Use the default configuration.
+4. Add an **Amazon Cognito User Pool** auth resource.  When prompted `Do you want to use the default authentication and security configuration? ` Use the default configuration.
 
    ```bash
    amplify add auth
@@ -123,6 +123,14 @@ Using default provider awscloudformation
 
    ```bash
    amplify add api
+   ```
+
+   ```? Please select from one of the below mentioned services GraphQL
+    ? Provide API name: chatapp
+    ? Choose an authorization type for the API Amazon Cognito User Pool
+   Use a Cognito user pool configured as a part of this project
+    ? Do you have an annotated GraphQL schema? Yes
+    ? Provide your schema file path: backend/schema.graphql
    ```
 
 6. Add S3 Private Storage for **Content** to the project with the default options. Select private **read/write** access for **Auth users only**:
