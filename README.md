@@ -133,6 +133,7 @@ Using default provider awscloudformation
 Use a Cognito user pool configured as a part of this project
  Do you have an annotated GraphQL schema? **Yes**
  Provide your schema file path **backend/schema.graphql**
+ 
 --------
 
 6. Add S3 Private Storage for **Content** to the project with the default options. Select private **read/write** access for **Auth users only**:
