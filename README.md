@@ -79,7 +79,7 @@ At the time of writing this workshop, Amazon Lex is only available in these regi
    amplify init
    ```
 
-#### Example:
+#### Example Output:
 
 Note: It is recommended to run this command from the root of your app directory
 
@@ -102,7 +102,7 @@ Using default provider awscloudformation
 
 * Do you want to use an AWS profile? (Y/n)
 
--
+--------
 
    Set the region we are deploying resources to:
 
