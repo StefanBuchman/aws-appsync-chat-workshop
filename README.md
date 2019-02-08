@@ -154,9 +154,7 @@ At the time of writing this workshop, Amazon Lex is only available in these regi
     echo $STACK_NAME
     ```
 
-11. Now we need to deploy 3 Lambda functions (one for AppSync and two for Lex) and configure the AppSync Resolvers to use Lambda accordingly. First, we install the npm dependencies for each lambda function. We then package and deploy the changes with SAM.
-
-**Please Note:** If you have defined an AWS Profile for the AWS CLI remember to add `--profile profile-name` to the sam package and deploy command.
+11. Now we need to deploy 3 Lambda functions (one for AppSync and two for Lex) and configure the AppSync Resolvers to use Lambda accordingly. First, we install the npm dependencies for each lambda function. We then package and deploy the changes with SAM. **Please Note:** If you have defined an AWS Profile for the AWS CLI remember to add `--profile profile-name` to the sam package and deploy command.
 
     ```bash
     cd ./backend/chuckbot-lambda; npm install; cd ../..
