@@ -80,7 +80,7 @@ At the time of writing this workshop, Amazon Lex is only available in these regi
    ```
 
 #### Example Output:
-
+```
 Note: It is recommended to run this command from the root of your app directory
  Enter a name for the project **Your App Name**
  Choose your default editor: **Select an Editor**
@@ -97,7 +97,7 @@ For more information on AWS Profiles, see:
 https://docs.aws.amazon.com/cli/latest/userguide/cli-multiple-profiles.html
 
  Do you want to use an AWS profile? **Yes/No**
-
+```
 --------
 
    Set the region we are deploying resources to:
