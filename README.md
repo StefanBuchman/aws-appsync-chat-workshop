@@ -122,14 +122,14 @@ https://docs.aws.amazon.com/cli/latest/userguide/cli-multiple-profiles.html
    ```
 
 #### Example Output:
- ```  
- Please select from one of the below mentioned services: **GraphQL**
- Provide API name: 
- Choose an authorization type for the API:  **Amazon Cognito User Pool**
-Use a Cognito user pool configured as a part of this project
- Do you have an annotated GraphQL schema? **Yes**
- Provide your schema file path **backend/schema.graphql**
-```
+
+ > Please select from one of the below mentioned services: **GraphQL**
+   Provide API name: 
+   Choose an authorization type for the API:  **Amazon Cognito User Pool**
+  Use a Cognito user pool configured as a part of this project
+   Do you have an annotated GraphQL schema? **Yes**
+   Provide your schema file path **backend/schema.graphql**
+
 --------
 
 6. Add S3 Private Storage for **Content (Images, audio, video, etc.)** to the project with the default options. Select private **read/write** access for **Auth users only**:
