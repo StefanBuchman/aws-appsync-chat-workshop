@@ -132,13 +132,13 @@ Use a Cognito user pool configured as a part of this project
 ```
 --------
 
-6. Add S3 Private Storage for **Content** to the project with the default options. Select private **read/write** access for **Auth users only**:
+6. Add S3 Private Storage for **Content (Images, audio, video, etc.)** to the project with the default options. Select private **read/write** access for **Auth users only**:
 
    ```bash
    amplify add storage
    ```
 
-7. Now it's time to provision your cloud resources based on the local setup and configured features. When asked to generate code, answer **"NO"** as it would overwrite the current custom files in the `src/graphql` folder.
+7. Now it's time to provision your cloud resources based on the local setup and configured features. When asked to **Do you want to generate code for your newly created GraphQL API**, answer **"NO"** as it would overwrite the current custom files in the `src/graphql` folder.
 
    ```bash
    amplify push
