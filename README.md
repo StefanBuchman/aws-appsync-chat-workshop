@@ -73,9 +73,34 @@ At the time of writing this workshop, Amazon Lex is only available in these regi
 
 3. Init the directory as an amplify **Javascript** app using the **React** framework:
 
+#### The amplify init command is a one-time initialization step for your Amplify powered cloud app. You run this once for each project (JavaScript, iOS, or Android) to connect your app with an AWS backend.
+
    ```bash
    amplify init
    ```
+
+### Example:
+        ```
+        Note: It is recommended to run this command from the root of your app directory
+
+        * Enter a name for the project: 
+        * Choose your default editor: 
+        * Choose the type of app that you're building: `Select javascript`
+
+        Please tell us about your project
+
+        * What javascript framework are you using `Select react`
+        * Source Directory Path:  (src) 
+        * Distribution Directory Path: build
+        * Build Command:  npm run-script build
+        * Start Command: npm run-script start
+        Using default provider awscloudformation
+
+        For more information on AWS Profiles, see:
+        https://docs.aws.amazon.com/cli/latest/userguide/cli-multiple-profiles.html
+
+        * Do you want to use an AWS profile? (Y/n)
+        ```
 
    Set the region we are deploying resources to:
 
