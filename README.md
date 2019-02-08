@@ -80,25 +80,8 @@ At the time of writing this workshop, Amazon Lex is only available in these regi
    ```
 
 #### Example Output:
-```
-Note: It is recommended to run this command from the root of your app directory
- Enter a name for the project **Your App Name**
- Choose your default editor: **Select an Editor**
- Choose the type of app that you're building **javascript**
-Please tell us about your project
- What javascript framework are you using **react**
- Source Directory Path:  **src**
- Distribution Directory Path: **build**
- Build Command:  **npm run-script build**
- Start Command: **npm run-script start**
-Using default provider awscloudformation
+![Amplify Init](/media/Init.png)
 
-For more information on AWS Profiles, see:
-https://docs.aws.amazon.com/cli/latest/userguide/cli-multiple-profiles.html
-
- Do you want to use an AWS profile? **Yes/No**
-```
---------
 
    Set the region we are deploying resources to:
 
@@ -122,21 +105,15 @@ https://docs.aws.amazon.com/cli/latest/userguide/cli-multiple-profiles.html
    ```
 
 #### Example Output:
-
- >  * Please select from one of the below mentioned services: **GraphQL**
- >  * Provide API name: 
- >  * Choose an authorization type for the API:  **Amazon Cognito User Pool**
- > Use a Cognito user pool configured as a part of this project
- >  * Do you have an annotated GraphQL schema? **Yes**
- >  * Provide your schema file path **backend/schema.graphql**
-
---------
+![Amplify add api](/media/addApi.png)
 
 6. Add S3 Private Storage for **Content (Images, audio, video, etc.)** to the project with the default options. Select private **read/write** access for **Auth users only**:
 
    ```bash
    amplify add storage
    ```
+
+![Amplify add storage](/media/AmplifyStorage.png)
 
 7. Now it's time to provision your cloud resources based on the local setup and configured features. When asked to **Do you want to generate code for your newly created GraphQL API**, answer **"NO"** as it would overwrite the current custom files in the `src/graphql` folder.
 
