@@ -1,4 +1,7 @@
-# ChatQLv2: An AWS AppSync Chat Starter App written in React
+# Workshop: Building a Serverless Chat Application
+==================================================
+## Using AppSync, GraphQL and React
+-----------------------------------
 
 ## Quicklinks
 
