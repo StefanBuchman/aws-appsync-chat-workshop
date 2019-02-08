@@ -95,7 +95,13 @@ The application demonstrates GraphQL Mutations, Queries and Subscriptions with A
 
    Make sure [**ALL**](https://docs.aws.amazon.com/general/latest/gr/rande.html) services are supported in this region or else you'll get errors in the next steps.
 
-4. Add an **Amazon Cognito User Pool** auth resource. 
+4. Log into the console and head over to CloudFormation.
+
+   You should see a new stack has been created with a:
+   - Deployment bucket
+   - Two IAM roles
+
+5. Add an **Amazon Cognito User Pool** auth resource. 
 
    ```bash
    amplify add auth
