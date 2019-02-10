@@ -1,9 +1,6 @@
 # Workshop: Building a React PWA Chat Application
 
-## Quicklinks
-
 * [Workshop: Building a React PWA Chat Application](#workshop-building-a-react-pwa-chat-application)
-	* [Quicklinks](#quicklinks)
 	* [Introduction](#introduction)
 		* [Architecture](#architecture)
 	* [Getting Started](#getting-started)
