@@ -95,7 +95,7 @@ The application demonstrates GraphQL Mutations, Queries and Subscriptions with A
 
    Make sure [**ALL**](https://docs.aws.amazon.com/general/latest/gr/rande.html) services are supported in this region or else you'll get errors in the next steps.
 
-4. Log into the console and head over to CloudFormation.
+4. Log into the console and head over to [CloudFormation](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks).
 
    You should see a new stack has been created with a:
    - Deployment bucket
@@ -109,14 +109,18 @@ The application demonstrates GraphQL Mutations, Queries and Subscriptions with A
    When prompted:
 
    "_Do you want to use the default authentication and security configuration?_"
-   **Use the default configuration**
+   Answer: **Use the default configuration**
+
+   This will create a local resource for a Cognito user pool.  We'll push this configuration up to the cloud shortly.
  
 
-5. Add an **AppSync GraphQL** API with **Amazon Cognito User Pool** for the API Authentication. Follow the default options. When prompted with "_Do you have an annotated GraphQL schema?_", select **"YES"** and provide the schema file path `backend/schema.graphql`
+6. Add an **AppSync GraphQL** API with **Amazon Cognito User Pool** for the API Authentication. Follow the default options. When prompted with "_Do you have an annotated GraphQL schema?_", select **"YES"** and provide the schema file path `backend/schema.graphql`
 
    ```bash
    amplify add api
    ```
+
+Amplify will create your API for you according to the schema defined.  It will additionally build out the DynamoDB tables and populate the data sources when Step 7 is executed.
 
 #### Example Output:
 ![Amplify add api](/media/addApi.png)
@@ -127,13 +131,19 @@ The application demonstrates GraphQL Mutations, Queries and Subscriptions with A
    amplify add storage
    ```
 
-7. Now it's time to provision your cloud resources based on the local setup and configured features. When asked to **Do you want to generate code for your newly created GraphQL API**, answer **"NO"** as it would overwrite the current custom files in the `src/graphql` folder.
+7. Now it's time to provision your cloud resources based on the local setup and configured features. When asked:
+
+   **Do you want to generate code for your newly created GraphQL API**, answer **"No"** as it would overwrite the current custom files in the `src/graphql` folder.
 
    ```bash
    amplify push
    ```
 
    Wait for the provisioning to complete. Once done, a `src/aws-exports.js` file with the resources information is created.
+
+At this point, go check out the resources that have been created as part of the `amplify push` command:
+
+   [AWS AppSync](https://console.aws.amazon.com/appsync/home?region=us-east-1#/apis) you should see your new API, made up of the Schema and Data Sources.
 
 ---
 
