@@ -70,7 +70,7 @@ The application demonstrates GraphQL Mutations, Queries and Subscriptions with A
 *At the time of writing this workshop, Amazon Lex is only available in these regions.*
 
 ## Back-end Setup Instructions
-###Launch a Serverless Chat Application with AWS Amplify
+### Launch a Serverless Chat Application with AWS Amplify
 
 1. First, clone this repository and navigate to the created folder:
 
