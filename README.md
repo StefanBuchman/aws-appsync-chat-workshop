@@ -258,7 +258,7 @@ First, we install the npm dependencies for each lambda function. We then package
 
 ## Lex Chatbots
 
-5. Let's set up Lex. We will create 2 chatbots: ChuckBot and MovieBot. 
+1. Let's set up Lex. We will create 2 chatbots: ChuckBot and MovieBot. 
 
    Execute the following commands to add permissions so Lex can invoke the chatbot related Lambda functions you created in the previous section:
 
@@ -285,7 +285,7 @@ First, we install the npm dependencies for each lambda function. We then package
     aws lex-models put-bot --cli-input-json file://backend/MovieBot/bot.json --region $AWS_REGION
     ```
 
-6. Head over to [Lex]() and walk-through what has been created.
+2. Head over to [Lex]() and walk-through what has been created.
    
    You should see two Lex chatbots (ChuckBot & MovieBot), the bots may still be building.  While they are building take a look at:
    - The **intents**, these are the actions your chatbot users will attempt to have the chatbot undertake.  We can take slots (variables) as part of the intent to make the chatbot more dynamic
