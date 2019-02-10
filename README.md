@@ -357,7 +357,7 @@ Access your public chat application using the S3 Website Endpoint URL or the Clo
 Share the link with friends, sign up some users, and start creating conversations, uploading images, translating, executing text-to-speech in different languages, performing sentiment analysis and exchanging messages. Be mindful PWAs require SSL, in order to test PWA functionality access the CloudFront URL (HTTPS) from a mobile device and add the site to the mobile home screen.
 
 
-## Amplify Console
+## AWS Amplify Console
 To build a complete CI/CD pipeline from your GitHub repository, consider using the [AWS Amplify Console](https://aws.amazon.com/amplify/console/) service.
 
 The AWS Amplify Console is a continuous deployment and hosting service for mobile web applications. The AWS Amplify Console makes it easier for you to rapidly release new features, helps you avoid downtime during application deployment, and handles the complexity of simultaneously updating the frontend and backend of your applications.
