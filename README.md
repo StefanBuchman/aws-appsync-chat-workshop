@@ -19,7 +19,7 @@
 		* [Amazon Translate](#amazon-translate)
 		* [Amazon Comprehend](#amazon-comprehend)
 	* [Building, Deploying and Publishing with the Amplify CLI](#building-deploying-and-publishing-with-the-amplify-cli)
-	* [Amplify Console](#amplify-console)
+	* [AWS Amplify Console](#aws-amplify-console)
 	* [Clean Up](#clean-up)
 	* [Thank You!](#thank-you)
 
