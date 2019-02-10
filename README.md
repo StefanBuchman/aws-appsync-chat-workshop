@@ -421,4 +421,4 @@ to delete the resources created by the Amplify CLI.
 ## Thank You!
 We hope you have enjoyed this workshop!
 
-If you have any suggestion on how we can make it better please let us know.
+If you have any suggestions on how we can make it better please let us know.
