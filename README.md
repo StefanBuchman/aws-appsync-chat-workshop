@@ -143,11 +143,37 @@ Amplify will create your API for you according to the schema defined.  It will a
 
 At this point, go check out the resources that have been created as part of the `amplify push` command:
 
-   [AWS AppSync](https://console.aws.amazon.com/appsync/home?region=us-east-1#/apis) you should see your new API, made up of the Schema and Data Sources.
+In your `src` directory you should have a file called: `aws-exports.js`.  This file contains the references to the series of resources we created in the cloud.
+
+- [AppSync](https://console.aws.amazon.com/appsync/home?region=us-east-1#/apis) you should see your new API, made up of the Schema and Data Sources.
+
+- [DynamoDB](https://console.aws.amazon.com/dynamodb/home?region=us-east-1#tables:) you should see 4 new tables to support the chat application.  These were created by Amplify based off of the GraphQL schema.
+
+- [Cognito](https://console.aws.amazon.com/cognito/users/?region=us-east-1) a new Cognito User Pool should have been created to store credentials for your chat users.
+
+- [S3](https://s3.console.aws.amazon.com/s3/home?region=us-east-1) there should be a deployment bucket as well as a new bucket to hold media from the chat application.
+
+- [CloudFormation](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks) finally, you should see 4 new stacks, a primary and 3 nested stacks.  These ultimately provisioned the resouces during `init` and `push`.  When cleaning up, these stacks will also tear down the provisioned resources.
 
 ---
 
-**_At this point you have an usable serverless chat application with no AI features. The next steps are only needed to deploy and configure the integration with services that provide image recognition, text-to-speech, language translation, sentiment analysis as well as conversational chatbots. From here you can skip to step 13 if there's no interest to setup the AI integration._**
+## Testing the chat app before adding AI features
+
+1. Execute the following command to install your project package dependencies and run the application locally:
+
+    ```bash
+    amplify serve
+    ```
+
+2. Access your chat app at http://localhost:3000
+
+3. Use two different browsers or one in Incognito/InPrivate mode.  Sign up at least 2 different users, authenticate with each user to get them registered in the backend Users table.
+
+4. Search for your new users to start a conversation and test real-time/offline messaging.
+
+5. Try to send an image, you should be able to go to your S3 bucket where you'll see the file being committed to.
+
+6. Head back to Cognito and validate you can see your two new users.  You'll be able to view their details, validate that they confimed their identity and even initiate a reset of their password.
 
 ---
 
