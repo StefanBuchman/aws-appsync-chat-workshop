@@ -358,7 +358,7 @@ Share the link with friends, sign up some users, and start creating conversation
 
 
 ## AWS Amplify Console
-The [AWS Amplify Console](https://aws.amazon.com/amplify/console/) allows you to build a complete CI/CD pipeline directly from you GitBug repository.
+The [AWS Amplify Console](https://aws.amazon.com/amplify/console/) allows you to build a complete CI/CD pipeline directly from your GitHub repository.
 
 The AWS Amplify Console is a continuous deployment and hosting service for mobile web applications. The AWS Amplify Console makes it easier for you to rapidly release new features, helps you avoid downtime during application deployment, and handles the complexity of simultaneously updating the frontend and backend of your applications.
 
