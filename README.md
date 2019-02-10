@@ -2,15 +2,29 @@
 
 ## Quicklinks
 
-- [Introduction](#introduction)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Back End Setup](#back-end-setup)
-  - [Interacting with Chatbots](#interacting-with-chatbots)
-  - [Interacting with other AWS AI Services](#interacting-with-other-aws-ai-services)
-- [Building, Deploying and Publishing with the Amplify CLI](#building-deploying-and-publishing-with-the-amplify-cli)
-- [Back End Setup, Back End and Front End Building, Deploying and Publishing with the Amplify Console](#back-end-setup-back-end-and-front-end-building-deploying-and-publishing-with-the-amplify-console)
-- [Clean Up](#clean-up)
+* [Workshop: Building a React PWA Chat Application](#workshop-building-a-react-pwa-chat-application)
+	* [Quicklinks](#quicklinks)
+	* [Introduction](#introduction)
+		* [Architecture](#architecture)
+	* [Getting Started](#getting-started)
+		* [Prerequisites](#prerequisites)
+		* [Region Selection](#region-selection)
+	* [Back-end Setup Instructions](#back-end-setup-instructions)
+	* [Testing the chat app before adding AI features](#testing-the-chat-app-before-adding-ai-features)
+* [Add AI Features to your Serverless Chat Application](#add-ai-features-to-your-serverless-chat-application)
+	* [Getting AI supporting resources](#getting-ai-supporting-resources)
+	* [Lambda Functions](#lambda-functions)
+	* [Lex Chatbots](#lex-chatbots)
+	* [Interacting with Chatbots](#interacting-with-chatbots)
+	* [Interacting with AWS AI Services](#interacting-with-aws-ai-services)
+		* [Amazon Rekognition](#amazon-rekognition)
+		* [Amazon Polly](#amazon-polly)
+		* [Amazon Translate](#amazon-translate)
+		* [Amazon Comprehend](#amazon-comprehend)
+	* [Building, Deploying and Publishing with the Amplify CLI](#building-deploying-and-publishing-with-the-amplify-cli)
+	* [Amplify Console](#amplify-console)
+	* [Clean Up](#clean-up)
+	* [Thank You!](#thank-you)
 
 ## Introduction
 
@@ -58,7 +72,7 @@ The application demonstrates GraphQL Mutations, Queries and Subscriptions with A
 
 *At the time of writing this workshop, Amazon Lex is only available in these regions.*
 
-## Instructions
+## Back-end Setup Instructions
 ###Launch a Serverless Chat Application with AWS Amplify
 
 1. First, clone this repository and navigate to the created folder:
@@ -277,9 +291,9 @@ First, we install the npm dependencies for each lambda function. We then package
 6. Head over to [Lex]() and walk-through what has been created.
    
    You should see two Lex chatbots (ChuckBot & MovieBot), the bots may still be building.  While they are building take a look at:
-   - The intents, these are the actions your chatbot users will attempt to have the chatbot undertake.  We can take slots (variables) as part of the intent to make the chatbot more dynamic
-   - The slots, these are pieces of information we may need to fullfil an intent.
-   - Finally, make sure each chatbot has a Lambda function defined in the Fullfilment section.  This is what will be executed once when know what our chatbot user is looking for.
+   - The **intents**, these are the actions your chatbot users will attempt to have the chatbot undertake.  We can take slots (variables) as part of the intent to make the chatbot more dynamic
+   - The **slots**, these are pieces of information we may need to fullfil an intent.
+   - Finally, make sure each chatbot has a Lambda function defined in the **Fullfilment** section.  This is what will be executed once when know what our chatbot user is looking for.
 
 ---
 
@@ -309,14 +323,27 @@ _The chatbots retrieve information online via API calls from Lambda to [The Movi
    - Just selecting `ChuckBot` will display options for further interaction
    - Send a message with a nothing but a movie name and selecting `MovieBot` subsequently will retrieve the details about the movie
 
-### Interacting with other AWS AI Services
+## Interacting with AWS AI Services
+The `./backend/ai-lambda/index.js` function contains the code to call the higher-order AI services on AWS.  Take a look at this function for how it calls and interacts with those services.
 
-1. Click or select uploaded images to trigger Amazon Rekognition object, scene and celebrity detection.
-2. From the drop-down menu, select LISTEN -> TEXT TO SPEECH to trigger Amazon Polly and listen to messages in different voices based on the message automatically detected source language (supported languages: English, Mandarin, Portuguese, French and Spanish).
-3. To perform entity and sentiment analysis on messages via Amazon Comprehend, select ANALYZE -> SENTIMENT from the drop-down menu.
-4. To translate the message select the desired language under TRANSLATE in the drop-down menu (supported languages: English, Mandarin, Portuguese, French and Spanish). In the translation pane, click on the microphone icon to listen to the translated message.
+The chatbot integrates with this function either through the drop-down menu on a container of text or through clicking on an image.
+
+### Amazon Rekognition
+To have [Amazon Rekognition](https://aws.amazon.com/rekognition/) detect the contents of a photo, either upload a new photo inside of a chat and then click on the photo or select an existing photo by clicking on it.
+
+### Amazon Polly
+To have [Amazon Polly]() convert text to speach, from the drop-down menu, select under **Listen**, select **Text to Speech** to trigger Amazon Polly and listen to messages read out loud.
+
+The voice is determined by the automatically detected source language (supported languages: English, Mandarin, Portuguese, French and Spanish) the mappings can be found in `src/components/Message.js`.
+
+### Amazon Translate
+To have [Amazon Translate](https://aws.amazon.com/translate/) convert the message to another language, select the desired language under **Translate** in the drop-down menu (supported languages: English, Mandarin, Portuguese, French and Spanish). In the translation pane, click on the microphone icon to listen to the translated message.
+
+### Amazon Comprehend
+To have the chatbot peform sentiment and entity analysis on a message using [Amazon Comprehend](https://aws.amazon.com/comprehend/), select **Sentiment** under the **Analyze** section on the drop-down menu.
 
 ## Building, Deploying and Publishing with the Amplify CLI
+To have your new chat/chatbot service hosted on AWS, follow the steps below.
 
 1. Execute `amplify add hosting` from the project's root folder and follow the prompts to create an S3 bucket (DEV) and/or a CloudFront distribution (PROD).
 
@@ -326,11 +353,19 @@ _The chatbots retrieve information online via API calls from Lambda to [The Movi
    amplify publish
    ```
 
-3. If you are deploying a CloudFront distribution, be mindful it needs to be replicated across all points of presence globally and it might take up to 15 minutes to do so.
+   *__Note:__ If you are deploying a CloudFront distribution, be mindful it needs to be replicated across all points of presence globally and it might take up to 15 minutes to do so.*
 
-4. Access your public ChatQL application using the S3 Website Endpoint URL or the CloudFront URL returned by the `amplify publish` command. Share the link with friends, sign up some users, and start creating conversations, uploading images, translating, executing text-to-speech in different languages, performing sentiment analysis and exchanging messages. Be mindful PWAs require SSL, in order to test PWA functionality access the CloudFront URL (HTTPS) from a mobile device and add the site to the mobile home screen.
+Access your public chat application using the S3 Website Endpoint URL or the CloudFront URL returned by the `amplify publish` command. 
 
-## Back End Setup, Back End and Front End Building, Deploying and Publishing with the Amplify Console
+Share the link with friends, sign up some users, and start creating conversations, uploading images, translating, executing text-to-speech in different languages, performing sentiment analysis and exchanging messages. Be mindful PWAs require SSL, in order to test PWA functionality access the CloudFront URL (HTTPS) from a mobile device and add the site to the mobile home screen.
+
+
+## Amplify Console
+To build a complete CI/CD pipeline from your GitHub repository, consider using the [AWS Amplify Console](https://aws.amazon.com/amplify/console/) service.
+
+The AWS Amplify Console is a continuous deployment and hosting service for mobile web applications. The AWS Amplify Console makes it easier for you to rapidly release new features, helps you avoid downtime during application deployment, and handles the complexity of simultaneously updating the frontend and backend of your applications.
+
+In order to get up and running using AWS Amplify Console
 
 1. Fork this repository into your own GitHub account and clone it
 2. Install the Amplify CLI with multienv support:
@@ -341,9 +376,16 @@ _The chatbots retrieve information online via API calls from Lambda to [The Movi
 
     More info [here](https://docs.aws.amazon.com/amplify/latest/userguide/deploy-backend.html).
 
-3. Repeat Steps 3 to 6 from the [Back End Setup](#back-end-setup) in the previous section. Do not perform step 7 (`amplify push`).
+3. Repeat Steps 3 to 6 from the [Back-end Setup Instructions](#launch-a-serverless-chat-application-with-aws-amplify) in the previous section. 
+
+   **Do not perform step 7 (`amplify push`).**
+
 4. Commit the changes to your forked repository. A new folder `amplify` will be commited with the project details.
-5. Connect your repository to the [Amplify Console](https://console.aws.amazon.com/amplify/home?#/create) as per the instructions [here](https://docs.aws.amazon.com/amplify/latest/userguide/getting-started.html), making sure the name of the branch in your repository matches the name of the environment configured on `amplify init` (i.e. master). When prompted with "_We detected a backend created with the Amplify Framework. Would you like Amplify Console to deploy these resources with your frontend?_", select **"YES"** and provide or create an IAM role with appropriate permissions to build the backend resources
+
+5. Connect your repository to the [Amplify Console](https://console.aws.amazon.com/amplify/home?#/create) as per the instructions [here](https://docs.aws.amazon.com/amplify/latest/userguide/getting-started.html), making sure the name of the branch in your repository matches the name of the environment configured on `amplify init` (i.e. master). 
+
+When prompted with "_We detected a backend created with the Amplify Framework. Would you like Amplify Console to deploy these resources with your frontend?_", select **"YES"** and provide or create an IAM role with appropriate permissions to build the backend resources
+
 6. Wait for the build, deployment and verification steps
 
 ---
@@ -352,7 +394,8 @@ _The chatbots retrieve information online via API calls from Lambda to [The Movi
 
 ---
 
-7. Now perform steps 7 to 12 from the [Back End Setup](#back-end-setup)
+7. Now perform steps 7 to 12 from the [Back-end Setup Instructions](#launch-a-serverless-chat-application-with-aws-amplify) and continue with the instructions to setup the Lex chatbot.
+
 8. Access your app from the hosted site generated by the Amplify Console(https://master.xxxxxxxx.amplifyapp.com)
 
 ## Clean Up
@@ -377,3 +420,8 @@ amplify delete
 ```
 
 to delete the resources created by the Amplify CLI.
+
+## Thank You!
+We hope you have enjoyed this workshop!
+
+If you have any suggestion on how we can make it better please let us know.
