@@ -177,24 +177,24 @@ In your `src` directory you should have a file called: `aws-exports.js`.  This f
 
 ---
 
+# Add AI Features to your Serverless Chat Application
+## Getting AI supporting resources
 
-## Add AI Features to your Serverless Chat Application
-
-8. Look up the S3 bucket name created for user storage:
+1. Look up the S3 bucket name created for user storage:
 
    ```bash
    export USER_FILES_BUCKET=$(sed -n 's/.*"aws_user_files_s3_bucket": "\(.*\)".*/\1/p' src/aws-exports.js)
    echo $USER_FILES_BUCKET
    ```
 
-9. Retrieve the API ID of your AppSync GraphQL endpoint
+2. Retrieve the API ID of your AppSync GraphQL endpoint
 
    ```bash
    export GRAPHQL_API_ID=$(jq -r '.api[(.api | keys)[0]].output.GraphQLAPIIdOutput' ./amplify/#current-cloud-backend/amplify-meta.json)
    echo $GRAPHQL_API_ID
    ```
 
-10. Retrieve the project's deployment bucket and stackname . It will be used for packaging and deployment with SAM
+3. Retrieve the project's deployment bucket and stackname . *It will be used for packaging and deployment with SAM*
 
     ```bash
     export DEPLOYMENT_BUCKET_NAME=$(jq -r '.providers.awscloudformation.DeploymentBucketName' ./amplify/#current-cloud-backend/amplify-meta.json)
@@ -203,28 +203,53 @@ In your `src` directory you should have a file called: `aws-exports.js`.  This f
     echo $STACK_NAME
     ```
 
-11. Now we need to deploy 3 Lambda functions (one for AppSync and two for Lex) and configure the AppSync Resolvers to use Lambda accordingly. First, we install the npm dependencies for each lambda function. We then package and deploy the changes with SAM. 
-    
-    > **Please Note:** If you have defined an **AWS Profile** for the AWS CLI remember to add `--profile profile-name` to the SAM or CLI commands below.
+## Lambda Functions
+
+Now we need to deploy 3 Lambda functions (one for AppSync and two for Lex) and configure the AppSync Resolvers to use Lambda accordingly. 
+
+First, we install the npm dependencies for each lambda function. We then package and deploy the changes with SAM. 
+
+**Please Note:** If you have defined an **AWS Profile** for the AWS CLI remember to add `--profile profile-name` to the SAM or CLI commands below.
+
+1. First, head to the Lambda functions under the backend directory.  Take a look through the functions and see what they're doing.
+
+2. Let's get the dependencies installed and the functions packaged.
 
     ```bash
     cd ./backend/chuckbot-lambda; npm install; cd ../..
     cd ./backend/moviebot-lambda; npm install; cd ../..
+
     sam package --template-file ./backend/deploy.yaml --s3-bucket $DEPLOYMENT_BUCKET_NAME --output-template-file packaged.yaml
+
     export STACK_NAME_AIML="$STACK_NAME-extra-aiml"
+
     sam deploy --template-file ./packaged.yaml --stack-name $STACK_NAME_AIML --capabilities CAPABILITY_IAM --parameter-overrides appSyncAPI=$GRAPHQL_API_ID s3Bucket=$USER_FILES_BUCKET --region $AWS_REGION
     ```
 
-    Wait for the stack to finish deploying then retrieve the functions' ARN
+3. Head over to [CloudFormation](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks) and validate that the stack has been created. *Wait for the stack to complete deploying.*
+
+   Head over to your new Lambda functions and validate they have been created.
+
+
+4. We'll now retrieve the ARN for the Lambda functions.  We'll need the ARN's to allow Lex to point to the correct function to fullfil an intent.
 
     ```bash
     export CHUCKBOT_FUNCTION_ARN=$(aws cloudformation describe-stacks --stack-name  $STACK_NAME_AIML --query "Stacks[0].Outputs" --region $AWS_REGION | jq -r '.[] | select(.OutputKey == "ChuckBotFunction") | .OutputValue')
+
     export MOVIEBOT_FUNCTION_ARN=$(aws cloudformation describe-stacks --stack-name  $STACK_NAME_AIML --query "Stacks[0].Outputs" --region $AWS_REGION | jq -r '.[] | select(.OutputKey == "MovieBotFunction") | .OutputValue')
+
     echo $CHUCKBOT_FUNCTION_ARN
     echo $MOVIEBOT_FUNCTION_ARN
     ```
 
-12. Let's set up Lex. We will create 2 chatbots: ChuckBot and MovieBot. Execute the following commands to add permissions so Lex can invoke the chatbot related functions:
+   Your ARN's should look something like the following:
+   `arn:aws:lambda:us-east-1:0123456789:function:awstest1-20190208143507-extra-aiml-ChuckBot-TZJDK8UUOJCC`
+
+## Lex Chatbots
+
+5. Let's set up Lex. We will create 2 chatbots: ChuckBot and MovieBot. 
+
+   Execute the following commands to add permissions so Lex can invoke the chatbot related Lambda functions you created in the previous section:
 
     ```bash
     aws lambda add-permission --statement-id Lex --function-name $CHUCKBOT_FUNCTION_ARN --action lambda:\* --principal lex.amazonaws.com --region $AWS_REGION
@@ -249,25 +274,37 @@ In your `src` directory you should have a file called: `aws-exports.js`.  This f
     aws lex-models put-bot --cli-input-json file://backend/MovieBot/bot.json --region $AWS_REGION
     ```
 
-13. Finally, execute the following command to install your project package dependencies and run the application locally:
+6. Head over to [Lex]() and walk-through what has been created.
+   
+   You should see two Lex chatbots (ChuckBot & MovieBot), the bots may still be building.  While they are building take a look at:
+   - The intents, these are the actions your chatbot users will attempt to have the chatbot undertake.  We can take slots (variables) as part of the intent to make the chatbot more dynamic
+   - The slots, these are pieces of information we may need to fullfil an intent.
+   - Finally, make sure each chatbot has a Lambda function defined in the Fullfilment section.  This is what will be executed once when know what our chatbot user is looking for.
+
+---
+
+## Interacting with Chatbots
+
+_The chatbots retrieve information online via API calls from Lambda to [The Movie Database (TMDb)](https://www.themoviedb.org/) (MovieBot, which is based on this [chatbot sample](https://github.com/aws-samples/aws-lex-convo-bot-example)) and [chucknorris.io ](https://api.chucknorris.io/) (ChuckBot)_
+
+1. Execute the following command to install your project package dependencies and run the application locally:
 
     ```bash
     amplify serve
     ```
 
-14. Access your ChatQLv2 app at http://localhost:3000. Sign up at least 2 different users, authenticate with each user to get them registered in the backend Users table, then search for new users to start a conversation and test real-time/offline messaging as well as other features using different devices or browsers.
+2. Access your chat app at http://localhost:3000
 
-### Interacting with Chatbots
+3. Resume your previous conversation or start a new one.
 
-_The chatbots retrieve information online via API calls from Lambda to [The Movie Database (TMDb)](https://www.themoviedb.org/) (MovieBot, which is based on this [chatbot sample](https://github.com/aws-samples/aws-lex-convo-bot-example)) and [chucknorris.io ](https://api.chucknorris.io/) (ChuckBot)_
-
-1. In order to initiate or respond to a chatbot conversation, you need to start the message with either `@chuckbot` or `@moviebot` to trigger or respond to the specific bot, for example:
+4. In order to initiate or respond to a chatbot conversation, you need to start the message with either `@chuckbot` or `@moviebot` to trigger or respond to the specific bot, for example:
 
    - _@chuckbot Give me a Chuck Norris fact_
    - _@moviebot Tell me about a movie_
 
-2. Each subsequent response needs to start with the bot handle (@chuckbot or @moviebot) so the app can detect the message is directed to Lex and not to the other user in the same conversation. Both users will be able to view Lex chatbot responses in real-time powered by GraphQL subscriptions.
-3. Alternatively you can start a chatbot conversation from the message drop-down menu:
+5. Each subsequent response needs to start with the bot handle (@chuckbot or @moviebot) so the app can detect the message is directed to Lex and not to the other user in the same conversation. Both users will be able to view Lex chatbot responses in real-time powered by GraphQL subscriptions.
+
+6. Alternatively you can start a chatbot conversation from the message drop-down menu:
 
    - Just selecting `ChuckBot` will display options for further interaction
    - Send a message with a nothing but a movie name and selecting `MovieBot` subsequently will retrieve the details about the movie
