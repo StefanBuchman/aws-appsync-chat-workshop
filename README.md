@@ -79,13 +79,7 @@ The application demonstrates GraphQL Mutations, Queries and Subscriptions with A
    cd aws-appsync-chat-workshop
    ```
 
-2. Install the required modules:
-
-   ```bash
-   npm install
-   ```
-
-3. Init the directory as an amplify **Javascript** app using the **React** framework:
+2. Init the directory as an amplify **Javascript** app using the **React** framework:
 
 #### The amplify init command is a one-time initialization step for your Amplify powered cloud app. You run this once for each project (JavaScript, iOS, or Android) to connect your app with an AWS backend.
 
@@ -170,21 +164,27 @@ In your `src` directory you should have a file called: `aws-exports.js`.  This f
 
 ## Testing the chat app before adding AI features
 
-1. Execute the following command to install your project package dependencies and run the application locally:
+1. Install the required modules:
+
+   ```bash
+   npm install
+   ```
+
+2. Execute the following command to install your project package dependencies and run the application locally:
 
     ```bash
     amplify serve
     ```
 
-2. Access your chat app at http://localhost:3000
+3. Access your chat app at http://localhost:3000
 
-3. Use two different browsers or one in Incognito/InPrivate mode.  Sign up at least 2 different users, authenticate with each user to get them registered in the backend Users table.
+4. Use two different browsers or one in Incognito/InPrivate mode.  Sign up at least 2 different users, authenticate with each user to get them registered in the backend Users table.
 
-4. Search for your new users to start a conversation and test real-time/offline messaging.
+5. Search for your new users to start a conversation and test real-time/offline messaging.
 
-5. Try to send an image, you should be able to go to your S3 bucket where you'll see the file being committed to.
+6. Try to send an image, you should be able to go to your S3 bucket where you'll see the file being committed to.
 
-6. Head back to Cognito and validate you can see your two new users.  You'll be able to view their details, validate that they confimed their identity and even initiate a reset of their password.
+7. Head back to Cognito and validate you can see your two new users.  You'll be able to view their details, validate that they confimed their identity and even initiate a reset of their password.
 
 ---
 
